@@ -20,7 +20,7 @@ public class TravelDaoImpl implements TravelDao {
 	public void connectToDatabase() throws ClassNotFoundException,SQLException {
 	     Class.forName("oracle.jdbc.driver.OracleDriver");
 
-		connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "9557962607");
+		connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "tufel5798");
 }	
 
 public void closeConnectionToDatabase() throws SQLException{
