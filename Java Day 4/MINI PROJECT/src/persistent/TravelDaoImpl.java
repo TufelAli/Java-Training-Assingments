@@ -19,7 +19,6 @@ public class TravelDaoImpl implements TravelDao {
 	PreparedStatement preparedStatement5=null;
 	public void connectToDatabase() throws ClassNotFoundException,SQLException {
 	     Class.forName("oracle.jdbc.driver.OracleDriver");
-
 		connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "tufel5798");
 }	
 
@@ -35,7 +34,7 @@ public ArrayList<Passenger> listAllPassenger(){
 	
 	try{connectToDatabase();
 	
-	preparedStatement=connection.prepareStatement("SELECT * FROM passenger");
+	preparedStatement=connection.prepareStatement("SELECT * FROM PASSENGER");
 	ResultSet resultSet= preparedStatement.executeQuery();
 	while(resultSet.next()) {
 		int busId=resultSet.getInt("ID");
@@ -72,7 +71,7 @@ ArrayList<Travel> busList=new ArrayList<Travel>();
     	
 		try{connectToDatabase();
 		
-		preparedStatement=connection.prepareStatement("SELECT * FROM bus");
+		preparedStatement=connection.prepareStatement("SELECT * FROM BUS");
 		ResultSet resultSet= preparedStatement.executeQuery();
 		while(resultSet.next()) {
 			int busId=resultSet.getInt("ID");
@@ -109,8 +108,8 @@ ArrayList<Travel> busList=new ArrayList<Travel>();
 			boolean src2=false;
 			boolean dest2=false;
 			connectToDatabase();
-			preparedStatement=connection.prepareStatement("SELECT source,destination FROM bus");
-			preparedStatement2=connection.prepareStatement("SELECT CAPACITY FROM BUS Where source=? and Destination=?");
+			preparedStatement=connection.prepareStatement("SELECT SORUCE,DESTINATION FROM BUS");
+			preparedStatement2=connection.prepareStatement("SELECT CAPACITY FROM BUS WHERE SORUCE=? AND DESTINATION=?");
 			preparedStatement2.setString(2, destination);
 			preparedStatement2.setString(1, source);
 			ResultSet resultSet=preparedStatement.executeQuery();
@@ -149,8 +148,8 @@ ArrayList<Travel> busList=new ArrayList<Travel>();
 			        int cap=resultSet2.getInt("CAPACITY");
 			        cap1=cap;
 			         }
-			
-		}if(cap1>0)
+		}
+		if(cap1>0)
 			return true;
 		}
 		catch(ClassNotFoundException c) {
@@ -181,7 +180,7 @@ ArrayList<Travel> busList=new ArrayList<Travel>();
 		preparedStatement.setString(4,passenger.getDestination() );
 		preparedStatement.setInt(6, passenger.getAge());
 		preparedStatement.setString(3,passenger.getName());
-		preparedStatement4=connection.prepareStatement("select id from bus WHERE Source=? and destination=?");
+		preparedStatement4=connection.prepareStatement("SELECT ID FROM BUS WHERE SORUCE=? AND DESTINATION=?");
 		String source =passenger.getSource();
 		String dest=passenger.getDestination();
 		preparedStatement4.setString(1, source);
@@ -194,7 +193,7 @@ ArrayList<Travel> busList=new ArrayList<Travel>();
 			}
 		preparedStatement.setInt(2, id2);
 		int rowi=preparedStatement.executeUpdate();
-		preparedStatement2=connection.prepareStatement("SELECT CAPACITY FROM BUS Where id=?");
+		preparedStatement2=connection.prepareStatement("SELECT CAPACITY FROM BUS WHERE ID=?");
 		preparedStatement2.setInt(1,id2);
 		int capacity=0;
 		ResultSet resultSet2=preparedStatement2.executeQuery();
@@ -233,7 +232,7 @@ ArrayList<Travel> busList=new ArrayList<Travel>();
 	public int getBusId(String src, String dest) {
 		int busId=0;
 		try {connectToDatabase();
-		preparedStatement4=connection.prepareStatement("select id from bus WHERE Source=? and destination=?");
+		preparedStatement4=connection.prepareStatement("SELECT ID FROM BUS WHERE SORUCE=? AND DESTINATION=?");
 			preparedStatement4.setString(1,src);
 			preparedStatement4.setString(2,dest);
 			ResultSet resultSet=preparedStatement4.executeQuery();
